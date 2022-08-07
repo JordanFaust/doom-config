@@ -75,14 +75,16 @@
         +everywhere)
 
        :tools
+       direnv
        docker
        (eval +overlay)     ; run code, run (also, repls)
        (lookup             ; helps you navigate your code and documentation
-        +docsets)          ; ...or in Dash docsets locally
+        +docsets +dictionary)          ; ...or in Dash docsets locally
        (lsp
         +peek)
        magit               ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
+       pdf
        ;; rgb               ; creating color strings
        taskrunner        ; taskrunner for all your projects
        terraform           ; infrastructure as code
@@ -91,6 +93,7 @@
        (cc
         +lsp)
        data                ; config/data formats
+       common-lisp
        emacs-lisp          ; drown in parentheses
        (go                 ; the hipster dialect
         +lsp)
@@ -119,6 +122,7 @@
 
        :app
        ;;calendar
+       everywhere
        ;;(rss +org)        ; emacs as an RSS reader
 
        :config

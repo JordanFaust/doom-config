@@ -6,6 +6,9 @@
 
 (use-package! org-roam
   :defer-incrementally org-roam-dailies
+  :config
+  (setq emacsql-sqlite-executable-path (concat "/etc/profiles/per-user/" (getenv "USER") "/bin/sqlite"))
+  (setq emacsql-sqlite-executable (concat "/etc/profiles/per-user/" (getenv "USER") "/bin/sqlite"))
   :after
   ;; TODO figure out why this is needed
   (org-id-update-id-locations))
@@ -229,7 +232,6 @@
         `(("i" "inbox" entry (file+olp +org-capture-inbox "Inbox")
            "** TODO %?"
            :unnarowed t))))
-
 
 ;;;
 ;;; Requires

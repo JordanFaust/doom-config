@@ -292,6 +292,27 @@
 (after! elisp-mode
   (setq tab-width 2))
 
+;;; :app everywhere
+(after! emacs-everywhere
+  ;; Easier to match with a bspwm rule:
+  ;;   bspc rule -a 'Emacs:emacs-everywhere' state=floating sticky=on
+  (setq emacs-everywhere-frame-name-format "emacs-everywhere")
+
+  ;; The modeline is not useful to me in the popup window. It looks much nicer
+  ;; to hide it.
+  ;; (remove-hook 'emacs-everywhere-init-hooks #'hide-mode-line-mode)
+
+  ;; Semi-center it over the target window, rather than at the cursor position
+  ;; (which could be anywhere).
+  (defadvice! center-emacs-everywhere-in-origin-window ()
+    :override #'emacs-everywhere-set-frame-position
+    (cl-destructuring-bind (x y width height)
+        (emacs-everywhere-app-geometry emacs-everywhere-current-app)
+      (let ((centered-x (+ x (/ width 2) (- (/ width 4))))
+            (centered-y (+ y (/ height 2) (- (/ height 8)))))
+        (set-frame-position (selected-frame) centered-x centered-y)))))
+
+
 ;;;
 ;;; Extensions
 ;;;
