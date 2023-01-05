@@ -68,11 +68,18 @@
 ;; Nano
 (package! nano-modeline :recipe '(:type git :host github :repo "rougier/nano-modeline"))
 (package! anzu :pin "bdb3da5028935a4aea55c40769bc191a81afb54e")
-(when (featurep! :editor evil)
+(when (modulep! :editor evil)
   (package! evil-anzu :pin "d3f6ed4773b48767bd5f4708c7f083336a8a8a86"))
+(package! minibuffer-header :recipe '(:type git :host github :repo "rougier/minibuffer-header"))
 
 ;; Nano Minibuffer
 ;; (package! mini-frame :recipe '(:type git :host github :repo "muffinmad/emacs-mini-frame"))
+
+;; Theme
+(package! treemacs-all-the-icons)
+
+;; Lang
+(package! protobuf-mode)
 
 ;; Vertico
 (package! vertico)

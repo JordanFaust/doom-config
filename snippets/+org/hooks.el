@@ -59,6 +59,12 @@
 ;; Capture created at timestamp for captured items
 (add-hook 'org-capture-before-finalize-hook '+org-capture-add-property-with-date-captured-h)
 
+
+;;; Org Fill Column
+
+;; Increases the fill-column for all org documents
+(add-hook 'org-mode-hook (lambda () (setq fill-column 120)))
+
 ;;;
 ;;; Org Clock Advice/Hooks
 ;;;

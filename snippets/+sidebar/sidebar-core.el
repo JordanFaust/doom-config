@@ -145,10 +145,10 @@ Used to show an error message if someone mistakenly activates `sidebar-mode'.")
           ;; workaround for LV windows like spacemacs' transient states preventing
           ;; side windows from popping up right
           ;; see https://github.com/abo-abo/hydra/issues/362
-          (setf (buffer-local-value 'window-size-fixed lv-buffer) nil)
+          ;; (setf (buffer-local-value 'window-size-fixed lv-buffer) nil)
           (+sidebar:log "+sidebar:setup-buffer using lv-buffer")
-          (+sidebar:popup-window)
-          (setf (buffer-local-value 'window-size-fixed lv-buffer) t))
+          (+sidebar:popup-window))
+          ;; (setf (buffer-local-value 'window-size-fixed lv-buffer) t))
       (+sidebar:log "+sidebar:setup-buffer not using lv-buffer")
       (+sidebar:popup-window))
     (let ((inhibit-read-only t))

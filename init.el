@@ -94,6 +94,8 @@
         +lsp)
        data                ; config/data formats
        common-lisp
+       (clojure
+        +lsp)
        emacs-lisp          ; drown in parentheses
        (go                 ; the hipster dialect
         +lsp)

@@ -88,6 +88,11 @@
 (advice-add #'vertico--format-candidate
             :around #'minibuffer-format-candidate)
 
+;; Enable vertico-buffer mode
+(use-package! vertico-buffer
+  :config
+  (vertico-buffer-mode))
+
 (after! (vertico vertico-buffer)
   (setq completion-styles '(basic substring partial-completion flex))
   (setq vertico-count 10)
@@ -155,8 +160,6 @@
   (setq marginalia-align 'right)
   (setq marginalia-align-offset -1))
 
-;; Enable vertico-buffer mode
-(vertico-buffer-mode)
 ;; Enable marginalia mode
 (marginalia-mode)
 

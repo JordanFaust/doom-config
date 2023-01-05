@@ -69,6 +69,9 @@
   ;; Only show roam backlink buffer when explicitly opened
   (setq +org-roam-open-buffer-on-find-file nil)
 
+  ;; Increaes the fill-column for all org documents
+  (setq fill-column 120)
+
   ;;;
   ;;; Org/Org Agenda UI Changes
   ;;;
@@ -238,14 +241,14 @@
 ;;;
 
 (after! (:or org org-agenda org-roam)
-  (require '+org-autoloads "+org/autoloads")
-  (require '+org-ui "+org/ui.el")
-  (require '+org-agenda "+org/agenda")
-  (require '+org-roam-todo "+org/roam-todo")
-  (require '+org-hooks "+org/hooks")
-  (require '+org-clock "+org/clock")
-  (require '+org-keybinds "+org/keybinds"))
+  (load! "autoloads")
+  (load! "ui.el")
+  (load! "agenda")
+  (load! "roam-todo")
+  (load! "hooks")
+  (load! "clock")
+  (load! "keybinds"))
 
-(require '+org-gcal "+org/gcal")
+(load! "gcal")
 
 (provide '+org-base)

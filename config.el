@@ -19,7 +19,10 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'semibold))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'bold))
+;; (setq doom-font (font-spec :family "JetBrainsMonoMedium Nerd Font" :size 16 :weight 'medium))
+;; (setq doom-font (font-spec :family "JetBrains Mono SemiBold" :size 16))
+;; (setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 16 :weight 'medium))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -116,8 +119,19 @@
   (setq evil-normal-state-cursor '(hbar . 2)))
 
 (after! doom-themes
+  (setq doom-themes-treemacs-theme "doom-colors")
+  ;; (setq doom-themes-treemacs-theme "all-the-icons")
+  ;; (treemacs-load-theme doom-themes-treemacs-theme)
   (doom-themes-treemacs-config)
+  ;; (treemacs-load-theme 'treemacs-theme)
   (doom-themes-org-config))
+
+  ;; Fix specific hex code issues with all-the-icons fonts
+  ;;(setq all-the-icons-data/octicons-alist (delq (assoc "file-directory" all-the-icons-data/octicons-alist) all-the-icons-data/octicons-alist))
+  ;;(setf (alist-get "file-directory" all-the-icons-data/octicons-alist) "\xf114"))
+
+
+
 
 ;;
 ;; LSP Configuration
@@ -129,22 +143,30 @@
   (setq company-tooltip-maximum-width 70)
   ;; Performance tuning for LSP mode until it doesn't cause issues with company/emacs
   (setq lsp-idle-delay 0.500)
-  (setq lsp-lens-enable nil)
-  (setq lsp-ui-sideline-enable nil)
+  ;; (setq lsp-lens-enable nil)
+  ;; (setq lsp-ui-sideline-enable nil)
 
   ;; This causes significant performance impacts when using rls for rust. This may
   ;; be less of an issue once using emacs 28 with better json serialization support
-  (setq lsp-ui-doc-enable nil)
-  (setq lsp-modeline-code-actions-enable nil)
-  (setq lsp-keep-workspace-alive nil)
+  ;; (setq lsp-modeline-code-actions-enable nil)
+  ;; (setq lsp-keep-workspace-alive nil)
+
+  (setq lsp-ui-doc-enable t)
+  ;; TODO set this to true when webkit issues is fixed
+  (setq lsp-ui-doc-use-webkit nil)
 
   ;; Turn off showing signature details in the modeline. This causes significant
   ;; performance problems when attempting to navigate a buffer. This is particularly
   ;; a problem within buffers for rust projects
-  (setq lsp-signature-auto-activate nil)
-  (setq lsp-signature-render-documentation nil)
-  (setq lsp-eldoc-hook nil))
+  ;; (setq lsp-signature-auto-activate nil)
+  ;; (setq lsp-signature-render-documentation nil)
+  ;; (setq lsp-eldoc-hook nil)
 
+  ;; Enable LSP UI minor modes
+  (lsp-ui-mode 1)
+
+  ;; Enable yas global mode for LSP completions
+  (yas-global-mode 1))
 
 ;; Attempt to improve performance in rustic mode
 ;;   set to nil if performance becomes an issues again
@@ -176,7 +198,7 @@
   (define-fringe-bitmap 'git-gutter-fr:modified [224]
     nil 12 '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
-    nil 12 'bottom))
+   nil 12 'bottom))
 
 ;;
 ;; Project Configuration
@@ -195,6 +217,7 @@
           "~/.cargo/registry/"
           "~/.gem/"
           "~/ws/go/pkg/"
+          "~/.m2/"
           "~/.emacs.d/.local/"
           "~/notes/roam"))
   (defun projectile-ignored-project-regexp-function (project-root)
@@ -312,15 +335,29 @@
             (centered-y (+ y (/ height 2) (- (/ height 8)))))
         (set-frame-position (selected-frame) centered-x centered-y)))))
 
+;; (use-package! minibuffer-header
+;;   :config
+;;   (minibuffer-header-mode))
 
-;;;
-;;; Extensions
-;;;
+;;
+;; Clojure
+;;
+(after! cider
+  (set-popup-rule! "^\\*cider-repl" :height 0.25 :side 'bottom))
+
+;;
+;; Protobuf/Graphql
+;;
+(use-package! protobuf-mode)
+
+;; ;;;
+;; ;;; Extensions
+;; ;;;
 
 (load! "snippets/+nano-modeline")
 (load! "snippets/+ruby")
 (load! "snippets/+bindings")
-(require '+org)
-(require '+sidebar)
-(require '+nano-vertico-buffer)
+(load! "snippets/+org")
+(load! "snippets/+sidebar")
+(load! "snippets/+nano-vertico-buffer")
 (load! "snippets/+mu4e")
