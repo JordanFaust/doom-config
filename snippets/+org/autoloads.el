@@ -4,28 +4,9 @@
   "Desired width of the captured screenshot.")
 
 ;;;###autoload
-(defun +org-my-agenda (&rest _)
-  "Iteractive command to navigate to My Agenda"
-  (interactive "P")
-  (org-agenda nil "a"))
-
-;;;###autoload
-(defun +org-roam-capture-to-inbox ()
-  "Interactive command to start inbox capture workflow"
-  (interactive)
-  (org-roam-capture- :keys "i"
-                     :node (org-roam-node-create)
-                     :templates org-roam-dailies-capture-templates))
-
-;;;###autoload
-(defun +org-roam-go-to-inbox ()
-  "Interactive command to go to the roam inbox"
-  (interactive)
-  (find-file "~/notes/roam/inbox/work.org"))
-
-;;;###autoload
 (defun +org-hide-properties ()
-  "Hide all org-mode headline property drawers in buffer. Could be slow if it has a lot of overlays."
+  "Hide all org-mode headline property drawers in buffer. Could be slow if it
+has a lot of overlays."
   (interactive)
   (save-excursion
     (goto-char (point-min))
@@ -102,7 +83,7 @@
   (interactive)
   (org-with-wide-buffer
    (org-agenda-set-tags)
-   (org-agenda-priority 'set)
+   (org-agenda-priority)
    (call-interactively '+org-agenda-set-effort)
    (org-agenda-refile nil nil t)))
 

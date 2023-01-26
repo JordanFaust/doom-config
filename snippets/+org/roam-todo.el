@@ -26,7 +26,8 @@
 (defconst +org-roam-note-created-keyword "CREATED")
 
 (defun +org-roam-format-daily-file (&optional date)
-  "Generate the formatted roam daily file path for the current day or the given date."
+  "Generate the formatted roam daily file path for the current day or the given
+date."
   (let ((timestamp (or date (decode-time))))
     (concat org-roam-dailies-directory
             "/"
@@ -55,8 +56,10 @@
 
 (defun +org-roam-todo-archive-location ()
   "Build the archive location string for the current daily entry."
-  (expand-file-name
-   (concat (+org-roam-daily-current-file) +org-roam-todo-archive-headline)))
+  (concat
+   (expand-file-name org-roam-directory)
+   "todos/work_archive.org"
+   "::* Completed"))
 
 (defun +org-roam-notes-with-tag-key (filter-key)
   "Return a list of note files containing 'project' tag." ;
@@ -137,10 +140,10 @@ as archived.
   "Dynamically update the archive target location to the current dailies file."
   (save-current-buffer
     ;; Create the current daily template unless it already exists
-    (unless (file-exists-p (+org-roam-daily-current-file))
-      (org-roam-capture- :keys "xd"
-                         :node (org-roam-node-create)
-                         :templates org-roam-capture-templates))
+    ;; (unless (file-exists-p (+org-roam-daily-current-file))
+    ;;   (org-roam-capture- :keys "xd"
+    ;;                      :node (org-roam-node-create)
+    ;;                      :templates org-roam-capture-templates))
     ;; Update the archive location to the daily file for the current day
     (setq org-archive-location (+org-roam-todo-archive-location))))
 
